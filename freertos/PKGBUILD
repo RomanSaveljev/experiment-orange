@@ -1,0 +1,50 @@
+pkgname=freertos
+pkgver=r2303.865e83d
+pkgrel=1
+pkgdesc="FreeRTOS as a static library"
+arch=('any')
+url=""
+license=('GPL')
+groups=()
+depends=()
+makedepends=() # 'bzr', 'git', 'mercurial' or 'subversion'
+provides=("${pkgname}")
+conflicts=()
+replaces=()
+backup=()
+options=(!strip debug)
+install=
+source=('freertos::git+https://github.com/cjlano/freertos.git#branch=master'
+        'Makefile::Makefile'
+       )
+noextract=()
+md5sums=('SKIP'
+         'SKIP'
+        )
+
+# Please refer to the 'USING VCS SOURCES' section of the PKGBUILD man page for
+# a description of each element in the source array.
+
+pkgver() {
+	cd "$srcdir/${pkgname}"
+	printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+}
+
+prepare() {
+	#cd "$srcdir"
+	mkdir -p build
+	#patch -p1 -i "$srcdir/${pkgname%-VCS}.patch"
+}
+
+build() {
+	#cd "$srcdir"
+	#./autogen.sh
+	#./configure --prefix=/usr
+	make
+}
+
+package() {
+	#cd "$srcdir"
+	make DESTDIR="$pkgdir/" install
+}
+

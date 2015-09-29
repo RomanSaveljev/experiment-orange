@@ -1,0 +1,42 @@
+pkgname=orange-port
+pkgver=0.0.1
+pkgrel=1
+pkgdesc="Ported definitions for FreeRTOS"
+arch=('any')
+url=""
+license=('GPL')
+groups=()
+depends=()
+makedepends=() # 'bzr', 'git', 'mercurial' or 'subversion'
+provides=("${pkgname}")
+conflicts=()
+replaces=()
+backup=()
+options=(!strip)
+install=
+source=("port.c::port.c"
+        "heap_4.c::heap_4.c"
+        "Makefile::Makefile"
+       )
+noextract=()
+md5sums=("SKIP"
+         "SKIP"
+         "SKIP"
+        )
+
+prepare() {
+	#cd "$srcdir"
+	mkdir -p build
+	#patch -p1 -i "$srcdir/${pkgname%-VCS}.patch"
+}
+
+build() {
+	#cd "$srcdir"
+	#./autogen.sh
+	#./configure --prefix=/usr
+	make
+}
+package() {
+	make DESTDIR="$pkgdir/" install
+}
+

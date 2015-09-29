@@ -1,0 +1,32 @@
+pkgname=orange-config
+pkgver=0.0.1
+pkgrel=1
+pkgdesc="Product configuration"
+arch=('any')
+url=""
+license=('GPL')
+groups=()
+depends=()
+makedepends=() # 'bzr', 'git', 'mercurial' or 'subversion'
+provides=("${pkgname}")
+conflicts=()
+replaces=()
+backup=()
+options=()
+install=
+source=("FreeRTOSConfig.h::FreeRTOSConfig.h"
+        "portmacro.h::portmacro.h"
+       )
+noextract=()
+md5sums=("SKIP"
+         "SKIP"
+        )
+
+package() {
+	install -m755 -d $pkgdir/$(${CC} -print-sysroot)/include
+	install -m644 -t $pkgdir/$(${CC} -print-sysroot)/include FreeRTOSConfig.h
+	install -m644 -t $pkgdir/$(${CC} -print-sysroot)/include portmacro.h
+	#cd "$srcdir"
+	#make DESTDIR="$pkgdir/" install
+}
+

@@ -1,0 +1,4 @@
+/freertos/
+/src/
+freertos-*.tar.xz
+/pkg/
